@@ -6,9 +6,9 @@ s=1 -- sprite
 d=3 -- delay anim
 x=0
 mapscr=0  -- map screen
-a=0  -- map `y' offset
-m=63 -- sprite `x'
-g=63 -- sprite `y'
+a=32  -- map `y' offset
+m=0 -- sprite `x'
+g=95 -- sprite `y'
 f=false -- flip
 w=false -- walking
 j=false -- jumping
@@ -20,71 +20,6 @@ cx=63 -- cat.x
 cdx=true -- r:true/l:false
 end
 --------------
-function _update()
-
-	if btn(0) then
- 	if j==false then g=63 end
-		walkanim()
-		f=true
-		w=true
-		if x==0 then -- static move
-		  m=m-1 end
-		if m==63 and mapscr==0 then -- scrolling
-		  x=x+1 
-		end
-		if m<=0 then
-		  m=0 end
-	elseif btn(1)==false then
-		w=false
-	end
-	
-	if btn(1) then
-	 if j==false then g=63 
-	 end
-	 walkanim()
-		f=false
-		w=true
-		if m<63 then -- static move
-		  m=m+1 end
-		if m==63 and mapscr==0 then -- scrolling
-		  x=x-1 end
-		if m>=63 and mapscr==1 then
-		  m=m+1 end
-		if m>= 120 and mapscr==1 then
-		  m=120 end
-	elseif btn(0)==false then
-		w=false
-	end
-	
-	if btn(5) then
-	 jumpanim()
-	 j=true
- else
-	 g=63
-	 j=false
-	end
-	
-	if btn(4) then
-	  if t==false then 
-     t=true
-   end
-   if t==true then
-     t=false
-   end
- end 
-
-	
-	if w==false then 
-	 s=1 
-	end
-	
-	if j==true then s=4 end
-	
-	if mapscr==1 and a==-128 then
-	  catanim()
-	end	
-end 
---------------
 function _draw()
 	cls()
 	spr(s,m,g,1,1,f) -- pc
@@ -95,6 +30,7 @@ function _draw()
 		p=p-4
 	end
 	print("x:"..x)
+	
 	-- overworld
 	if x<=-72 and x>=-81 then
 	  if mapscr==0 then
@@ -111,12 +47,87 @@ function _draw()
 			if btn(4) and mapscr==0 then
 			  barn() 
 			end
-	end
--- barn
- if a==-128 then
-   spr(34,cx,15,1,1,false) -- cat
  end
+ 
+ -- barn
+ if a==-96 then
+   -- cat
+   spr(34,cx,48,1,1,false) 
+ end
+ 
 end
+--------------
+function _update()
+
+	if btn(0) then
+ 	if j==false then g=g end
+		walkanim()
+		f=true
+		w=true
+		if x==0 then -- static move
+		  m=m-1 end
+		if m==63 and mapscr==0 then -- scrolling
+		  x=x+1 
+		end
+		if m<=0 then
+		  m=0 end
+	elseif btn(1)==false then
+		w=false
+	end
+	
+	if btn(1) then
+	 if j==false then g=g 
+	 end
+	 walkanim()
+		f=false
+		w=true
+		if m<63 then -- static move
+		  m=m+1 end
+		if m==63 and mapscr==0 then -- scrolling
+		  x=x-1 end
+		if m>=63 and mapscr==1 then
+		  m=m+1 end
+		if m>= 120 and mapscr==1 then
+		  m=120 end
+	elseif btn(0)==false then
+		w=false
+	end
+	
+	if btn(5) and l==false then
+	  s=4
+	  g=g-1
+ elseif g<=94 then 
+   s=4
+   l=true 
+	  g=g+1
+	  if g==94 then 
+	    l=false 
+	    g=g
+	  end
+	  -- collision / if c = true then g=?
+ else
+   l=false
+   s=s   
+	end
+	
+	if btn(4) then
+	  if t==false then 
+     t=true
+   end
+   if t==true then
+     t=false
+   end
+ end 
+
+	
+	if w==false then 
+	 s=1 
+	end
+	
+	if mapscr==1 and a==-96 then
+	  catanim()
+	end	
+end 
 --------------
 function walkanim()
 d=d-1
@@ -127,27 +138,14 @@ d=d-1
 	end
 end
 
-function jumpanim()
-s=4
-j=true
- if l==false then
-  g=g-1
-  if g<=55 then l=true end
- end
- if l==true then
-  g=g+1
-	 if g>=64 then l= false end
- end
-end
-
 function farmer()
   t=true
-  print("the cat is making\nmischief in the barn.",5,74)
+  print("the cat is making\nmischief in the barn.",5,105)
 end  
 
 function barn()
 		mapscr=1
-		a=-128
+		a=-96
 		x=0
 end
 
