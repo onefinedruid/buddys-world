@@ -19,7 +19,9 @@ t=false -- talking flag
 cx=63 -- cat.x
 cdx=true -- r:true/l:false
 end
---------------
+
+
+-->8
 function _draw()
 	cls()
 	spr(s,m,g,1,1,f) -- pc
@@ -58,7 +60,7 @@ function _draw()
    spr(34,cx,48,1,1,false) 
  end 
 end
---------------
+-->8
 function _update()
 
 --left button
@@ -133,7 +135,7 @@ function _update()
 	  catanim()
 	end	
 end 
---------------
+-->8
 function walkanim()
 d=d-1
 	if d<0 then
@@ -142,18 +144,18 @@ d=d-1
 	 d=4
 	end
 end
-
+--------------
 function farmer()
   t=true
   print("the cat is making\nmischief in the barn.",5,105)
 end  
-
+--------------
 function barn()
 		mapscr=1
 		a=-96
 		x=0
 end
-
+--------------
 function catanim()
 		if cx<124 and cdx==true 
 		   then cx=cx+1 end
@@ -162,7 +164,7 @@ function catanim()
 			  then cx=cx-1 end
 		if cx==-1 then cdx=true end
 end
-		
+--------------
 __gfx__
 00000000000000000000000000000000000000000077000070070700000000000000000070707070000007700000000000000000077000000000070000000000
 00000000700007000700070070000700070007000007000007077000000700000000000070707070000077000000000000000000007700000000070000000000
