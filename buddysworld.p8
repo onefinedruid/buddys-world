@@ -146,7 +146,12 @@ function _update()
    if t==true then
      t=false
    end
- end 
+ end
+ 
+--escape
+ if btn(2) then 
+ 		overworld()
+ end
 	
 	if w==false then 
 	 s=1 
@@ -156,11 +161,6 @@ function _update()
 	 catanim()
 	end
 	
-	if x==0 and mapscr>0 then
-   if btn(2) then 
-   overworld()
-   end
-	end
 	
 end 
 -->8
